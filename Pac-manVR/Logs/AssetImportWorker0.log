@@ -508,3 +508,4 @@ Received Import Request.
   path: Assets/Scenes/Testeo.unity
   artifactKey: Guid(18f5f64fe1b4800409b69c334320277a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Scenes/Testeo.unity using Guid(18f5f64fe1b4800409b69c334320277a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9861a0d9584ad2c3108504329f9809d') in 0.009605 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
