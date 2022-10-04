@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody m_Rigidbody;
+    private Transform target;
     float m_Speed;
     float m_Grados;
     bool try_Turn;
@@ -12,7 +13,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Speed = 10.0f; // Ajustar
+        m_Speed = 5.0f; // Ajustar
         m_Grados = 0;
         try_Turn = false;
     }
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
 
         //m_Rigidbody.velocity = transform.forward * m_Speed;
         transform.position += Vector3.forward * Time.deltaTime * m_Speed;
+
+        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
 
@@ -64,6 +67,14 @@ public class Player : MonoBehaviour
         return true;
     }
 
+
+
+    private void TargetUpdate()
+    {
+        // ACTUALIZAR TARGET 
+
+        //TODO
+    }
 
     private void ResetCam()
     {
