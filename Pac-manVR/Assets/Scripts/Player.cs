@@ -4,15 +4,71 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody m_Rigidbody;
+    float m_Speed;
+    float m_Grados;
+    bool try_Turn;
+
     void Start()
     {
-        
+        m_Rigidbody = GetComponent<Rigidbody>();
+        m_Speed = 10.0f; // Ajustar
+        m_Grados = 0;
+        try_Turn = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        MoveForward();
+
+        if (try_Turn)
+        {
+            Girar(m_Grados);
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            try_Turn = Girar(180);           
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            try_Turn = Girar(90);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            try_Turn = Girar(-90);
+        }
+    }
+
+    private void MoveForward() {
+        // Movimiento Constante 2 modos
+
+        //m_Rigidbody.velocity = transform.forward * m_Speed;
+        transform.position += Vector3.forward * Time.deltaTime * m_Speed;
+    }
+
+
+    private bool Girar(float grados)
+    {
+        // si en la direccion indicada puede girar devolvemos true y ponemos el flag a false
+        // si no lo intentamos nuevamente hasta que giremos
+        m_Grados = grados;
+        if (true)
+        {
+            transform.Rotate(new Vector3(0, grados, 0), Space.World);
+            ResetCam();
+            return false;
+        }
+        return true;
+    }
+
+
+    private void ResetCam()
+    {
+        // alineamos la camara y la direccion del jugador
+
+        //TODO
     }
 }
