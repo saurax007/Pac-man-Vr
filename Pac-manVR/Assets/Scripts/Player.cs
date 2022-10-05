@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody m_Rigidbody;
-    private Transform target;
+    [SerializeField] Transform raycaster;
+    float m_stop_distance = 1.5f;
     float m_Speed;
+    int m_direction;
     float m_Grados;
     bool try_Turn;
 
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        m_Speed = 5.0f; // Ajustar
+        m_Speed = 1.0f; // Ajustar
         m_Grados = 0;
         try_Turn = false;
     }
 
     void Update()
     {
-        MoveForward();
+        if (this.CanMove())
+        {
+            MoveForward();
+        }
 
         if (try_Turn)
         {
-            Girar(m_Grados);
+            try_Turn = Girar(m_Grados);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -45,11 +48,23 @@ public class Player : MonoBehaviour
 
     private void MoveForward() {
         // Movimiento Constante 2 modos
-
-        //m_Rigidbody.velocity = transform.forward * m_Speed;
-        transform.position += Vector3.forward * Time.deltaTime * m_Speed;
-
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        switch (m_direction)
+        {
+            case 0:
+                transform.position += Vector3.forward * Time.deltaTime * m_Speed;
+                break;
+            case 1:
+                transform.position += Vector3.right * Time.deltaTime * m_Speed;
+                break;
+            case 2:
+                transform.position += Vector3.back * Time.deltaTime * m_Speed;
+                break;
+            case 3:
+                transform.position += Vector3.left * Time.deltaTime * m_Speed;
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -58,28 +73,85 @@ public class Player : MonoBehaviour
         // si en la direccion indicada puede girar devolvemos true y ponemos el flag a false
         // si no lo intentamos nuevamente hasta que giremos
         m_Grados = grados;
-        if (true)
+        if (CanTurn(grados))
         {
-            transform.Rotate(new Vector3(0, grados, 0), Space.World);
-            ResetCam();
+            transform.Rotate(new Vector3(0, grados, 0), Space.World);           
             return false;
         }
         return true;
     }
 
-
-
-    private void TargetUpdate()
+    private bool CanTurn(float grados)
     {
-        // ACTUALIZAR TARGET 
-
-        //TODO
+        var oldDirection = m_direction;
+        if (grados == 90)
+        {
+            m_direction++;
+        }
+        else if (grados == -90)
+        {
+            m_direction--;
+        }
+        else
+        {
+            m_direction++;
+            m_direction++;
+        }
+        if (m_direction > 3)
+        {
+            m_direction = 0;
+        }
+        if (m_direction < 0)
+        {
+            m_direction = 3;
+        }
+        if (this.CanMove())
+        {
+            return true;
+        }
+        m_direction = oldDirection;
+        return false;
     }
 
-    private void ResetCam()
+    private bool CanMove()
     {
-        // alineamos la camara y la direccion del jugador
+        Ray ray1 = new Ray(transform.position, Vector3.forward);
+        Ray ray2 = new Ray(transform.position + new Vector3(0.51f,0,0), Vector3.forward);
+        Ray ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.forward);
+        switch (m_direction)
+        {
+            case 0:
+                ray1 = new Ray(transform.position, Vector3.forward);
+                ray2 = new Ray(transform.position + new Vector3(0.51f, 0, 0), Vector3.forward);
+                ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.forward);
+                break;
+            case 1:
+                ray1 = new Ray(transform.position, Vector3.right);
+                ray2 = new Ray(transform.position + new Vector3(0, 0, -0.51f), Vector3.right);
+                ray3 = new Ray(transform.position + new Vector3(0, 0, 0.51f), Vector3.right);
+                break;
+            case 2:
+                ray1 = new Ray(transform.position, Vector3.back);
+                ray2 = new Ray(transform.position + new Vector3(0.51f, 0, 0), Vector3.back);
+                ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.back);
+                break;
+            case 3:
+                ray1 = new Ray(transform.position, Vector3.left);
+                ray2 = new Ray(transform.position + new Vector3(0, 0, 0.51f), Vector3.left);
+                ray3 = new Ray(transform.position + new Vector3(0, 0, -0.51f), Vector3.left);
+                break;
+            default:
+                break;
+        }
 
-        //TODO
+        if (
+            Physics.Raycast(ray1, out RaycastHit hit, m_stop_distance) ||
+            Physics.Raycast(ray2, out RaycastHit hit2, m_stop_distance) ||
+            Physics.Raycast(ray3, out RaycastHit hit3, m_stop_distance)
+            )
+        {
+            return false;
+        }
+        return true;
     }
 }
