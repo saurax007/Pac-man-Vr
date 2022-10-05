@@ -13,6 +13,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // acercarse al jugador por las calles usar movimiento estilo jugador ??
     }
 }
