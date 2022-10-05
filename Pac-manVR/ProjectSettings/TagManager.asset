@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bola
+  - TP2
+  - TP1
+  - Enemy
   layers:
   - Default
   - TransparentFX

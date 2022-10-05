@@ -5,15 +5,23 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform raycaster;
+    [SerializeField] int initDirection;
     float m_stop_distance = 1.5f;
     float m_Speed;
-    int m_direction;
+    Direction m_direction;
     float m_Grados;
     bool try_Turn;
 
+    private enum Direction
+    { 
+    Forward =0,
+    Right =1,
+    Back = 2,
+    Left = 3,
+    };
     void Start()
     {
-        m_Speed = 1.0f; // Ajustar
+        m_Speed = 3.0f; // Ajustar
         m_Grados = 0;
         try_Turn = false;
     }
@@ -50,16 +58,16 @@ public class Player : MonoBehaviour
         // Movimiento Constante 2 modos
         switch (m_direction)
         {
-            case 0:
+            case Direction.Forward:
                 transform.position += Vector3.forward * Time.deltaTime * m_Speed;
                 break;
-            case 1:
+            case Direction.Right:
                 transform.position += Vector3.right * Time.deltaTime * m_Speed;
                 break;
-            case 2:
+            case Direction.Back:
                 transform.position += Vector3.back * Time.deltaTime * m_Speed;
                 break;
-            case 3:
+            case Direction.Left:
                 transform.position += Vector3.left * Time.deltaTime * m_Speed;
                 break;
             default:
@@ -86,25 +94,45 @@ public class Player : MonoBehaviour
         var oldDirection = m_direction;
         if (grados == 90)
         {
-            m_direction++;
+            if (m_direction == Direction.Left)
+            {
+                m_direction = Direction.Forward;
+            }
+            else
+            {
+                m_direction++;
+            }
         }
         else if (grados == -90)
         {
-            m_direction--;
+            if (m_direction == Direction.Forward)
+            {
+                m_direction = Direction.Left;
+            }
+            else
+            {
+                m_direction--;
+            }
         }
         else
         {
-            m_direction++;
-            m_direction++;
-        }
-        if (m_direction > 3)
-        {
-            m_direction = 0;
-        }
-        if (m_direction < 0)
-        {
-            m_direction = 3;
-        }
+            if (m_direction == Direction.Left)
+            {
+                m_direction = Direction.Forward;
+            }
+            else
+            {
+                m_direction++;
+            }
+            if (m_direction == Direction.Left)
+            {
+                m_direction = Direction.Forward;
+            }
+            else
+            {
+                m_direction++;
+            }
+        }       
         if (this.CanMove())
         {
             return true;
@@ -120,22 +148,22 @@ public class Player : MonoBehaviour
         Ray ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.forward);
         switch (m_direction)
         {
-            case 0:
+            case Direction.Forward:
                 ray1 = new Ray(transform.position, Vector3.forward);
                 ray2 = new Ray(transform.position + new Vector3(0.51f, 0, 0), Vector3.forward);
                 ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.forward);
                 break;
-            case 1:
+            case Direction.Right:
                 ray1 = new Ray(transform.position, Vector3.right);
                 ray2 = new Ray(transform.position + new Vector3(0, 0, -0.51f), Vector3.right);
                 ray3 = new Ray(transform.position + new Vector3(0, 0, 0.51f), Vector3.right);
                 break;
-            case 2:
+            case Direction.Back:
                 ray1 = new Ray(transform.position, Vector3.back);
                 ray2 = new Ray(transform.position + new Vector3(0.51f, 0, 0), Vector3.back);
                 ray3 = new Ray(transform.position + new Vector3(-0.51f, 0, 0), Vector3.back);
                 break;
-            case 3:
+            case Direction.Left:
                 ray1 = new Ray(transform.position, Vector3.left);
                 ray2 = new Ray(transform.position + new Vector3(0, 0, 0.51f), Vector3.left);
                 ray3 = new Ray(transform.position + new Vector3(0, 0, -0.51f), Vector3.left);

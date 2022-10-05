@@ -14,13 +14,14 @@ public class Teletransportation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Ajustar cuando se cree nivel completo 
         if (other.CompareTag("TP1"))
         {
-            gameObject.transform.position = tp2.transform.position;
+            gameObject.transform.position = new Vector3(tp2.transform.position.x, 4.5f, tp2.transform.position.z);
         }
         else if (other.CompareTag("TP2"))
         {
-            gameObject.transform.position = tp1.transform.position;
+            gameObject.transform.position = new Vector3(tp1.transform.position.x, 4.5f, tp1.transform.position.z);
         }
     }
     // Update is called once per frame

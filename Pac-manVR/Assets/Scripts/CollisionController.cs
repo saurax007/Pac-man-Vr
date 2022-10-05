@@ -16,8 +16,8 @@ public class CollisionController : MonoBehaviour
         if (other.CompareTag("Bola"))
         {
             // Aumentar puntución
+            Destroy(other.gameObject);
         }
 
-        Destroy(other.gameObject);
     }
 }
