@@ -17,5 +17,23 @@ public class CollisionController : MonoBehaviour
             // Aumentar puntución
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("Fruta"))
+        {
+            var enemies = FindObjectsOfType<Enemy>();
+            foreach (var enemy in enemies)
+            {
+                enemy.isScared = true;
+            }
+            Invoke("ResetScare",15f);
+        }
+    }
+    private void ResetScare()
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+        foreach (var enemy in enemies)
+        {
+            enemy.isScared = false;
+        }
     }
 }
