@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    [SerializeField] float value = 100;
 
     private void OnTriggerEnter(Collider other)
     {        
@@ -18,6 +17,5 @@ public class CollisionController : MonoBehaviour
             // Aumentar puntución
             Destroy(other.gameObject);
         }
-
     }
 }
