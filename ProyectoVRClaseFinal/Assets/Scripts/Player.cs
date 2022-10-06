@@ -38,17 +38,25 @@ public class Player : MonoBehaviour
             try_Turn = Girar(m_Grados);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (
+            Input.GetKeyDown(KeyCode.DownArrow) ||
+            Input.GetButtonDown("Jump")
+            )
         {
             try_Turn = Girar(180);           
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (
+            Input.GetKeyDown(KeyCode.RightArrow)||
+            Input.GetButtonDown("Fire2")
+            )
         {
             try_Turn = Girar(90);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) ||
+            Input.GetButtonDown("Fire3")
+            )
         {
             try_Turn = Girar(-90);
         }
