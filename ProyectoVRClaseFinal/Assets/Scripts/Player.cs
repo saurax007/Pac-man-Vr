@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform raycaster;
     [SerializeField] int initDirection;
+    Enemy[] enemies;
     float m_stop_distance = 1.5f;
     float m_Speed;
     Direction m_direction;
@@ -14,14 +15,14 @@ public class Player : MonoBehaviour
 
     private enum Direction
     { 
-    Forward =0,
-    Right =1,
-    Back = 2,
-    Left = 3,
+        Forward =0,
+        Right =1,
+        Back = 2,
+        Left = 3,
     };
     void Start()
     {
-        m_Speed = 3.0f; // Ajustar
+        m_Speed = 4.0f; // Ajustar
         m_Grados = 0;
         try_Turn = false;
     }
@@ -189,5 +190,15 @@ public class Player : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+
+    public void SetReferences()
+    {
+        enemies = FindObjectsOfType<Enemy>();
+        foreach (var enemy in enemies)
+        {
+            enemy.SetPlayer(this.gameObject);
+        }
     }
 }

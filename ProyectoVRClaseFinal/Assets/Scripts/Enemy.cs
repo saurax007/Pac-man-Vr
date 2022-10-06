@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         chaseMode = Random.Range(0,4);
+        FindObjectOfType<Player>().SetReferences();
     }
 
     // Update is called once per frame
@@ -62,21 +63,22 @@ public class Enemy : MonoBehaviour
 
     private void EngageTarget()
     {
+        Vector3 destiny = target.position;
         switch (chaseMode)
         {
             case 1:
-                navMeshAgent.SetDestination(target.position + new Vector3(1,0,1));
+                destiny += new Vector3(Random.Range(0,1), 0, Random.Range(0, 2));
                 break;
             case 2:
-                navMeshAgent.SetDestination(target.position + new Vector3(2, 0, -2));
+                destiny += new Vector3(Random.Range(0,2), 0, Random.Range(1, 3));
                 break;
             case 3:
-                navMeshAgent.SetDestination(target.position + new Vector3(-1, 0, 2));
+                destiny += new Vector3(Random.Range(0,1), 0, Random.Range(1, 3));
                 break;           
             default:
-                navMeshAgent.SetDestination(target.position);
                 break;
         }
+        navMeshAgent.SetDestination(destiny);
     }
 
     // Función para perseguir al jugador
@@ -99,5 +101,9 @@ public class Enemy : MonoBehaviour
     private void SetScared(bool scared)
     {
         this.isScared = scared;
+    }
+    public void SetPlayer(GameObject player)
+    {
+        target = player.transform;
     }
 }

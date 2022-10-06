@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3466861490845787076}
   - component: {fileID: 6949586257958546822}
   - component: {fileID: 4069060631672012070}
+  - component: {fileID: 9074798194044803220}
   m_Layer: 0
   m_Name: F_Azul
   m_TagString: Enemy
@@ -95,7 +96,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348866386484340427}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.009836225
   m_Height: 0.027596325
@@ -113,3 +114,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfa11e4b4fa66c44ba1426c7025e332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  enemySpawn: {fileID: 0}
+  isScared: 0
+--- !u!195 &9074798194044803220
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348866386484340427}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.010058407
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.01659808
+  m_BaseOffset: 0.00829904
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
