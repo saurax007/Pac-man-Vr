@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
         if (!Application.platform.Equals("Android"))
         {
             float mouseVertical = -Input.GetAxis("Mouse Y") * rotSpeed;
-            float mouseHorizontal = Input.GetAxis("Mouse X") * rotSpeed;
+            
             rotationVertical += mouseVertical * sensitivity * Time.deltaTime;
             
 
@@ -47,11 +47,12 @@ public class CameraMovement : MonoBehaviour
             cameraPlayer.transform.rotation = Quaternion.Euler(rotationVertical, transform.rotation.eulerAngles.y, 0);
 
         }
+        
 #endif
 
 #if UNITY_ANDROID
 
-        Vector3 velocityAndroid = cameraPlayer.transform.forward * Input.GetAxis("Vertical") * speed;
+        
         
 #endif
 
