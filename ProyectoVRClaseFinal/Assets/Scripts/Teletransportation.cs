@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Teletransportation : MonoBehaviour
 {
-    [SerializeField] GameObject tp1;
-    [SerializeField] GameObject tp2;
+     TP1 tp1;
+     TP2 tp2;
     // Start is called before the first frame update
     void Start()
     {
-        
+       tp1 = FindObjectOfType<TP1>();
+       tp2 = FindObjectOfType<TP2>();        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +25,7 @@ public class Teletransportation : MonoBehaviour
             gameObject.transform.position = new Vector3(tp1.transform.position.x, 4.5f, tp1.transform.position.z);
         }
     }
+
     // Update is called once per frame
     void Update()
     {

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform raycaster;
     [SerializeField] int initDirection;
+    [SerializeField] Camera camera;
     Enemy[] enemies;
     float m_stop_distance = 1.7f;
     float m_Speed;
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour
     {
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
-        transform.eulerAngles = new Vector3(pitch,yaw,0.0f);
+        camera.transform.eulerAngles = new Vector3(pitch,0.0f,0.0f);
     }
 
     private void MoveForward() {
@@ -107,7 +108,8 @@ public class Player : MonoBehaviour
         m_Grados = grados;
         if (CanTurn(grados))
         {
-            transform.Rotate(new Vector3(0, grados, 0), Space.World);           
+            transform.Rotate(new Vector3(0, grados, 0), Space.World);
+            camera.transform.rotation = transform.rotation;
             return false;
         }
         return true;
