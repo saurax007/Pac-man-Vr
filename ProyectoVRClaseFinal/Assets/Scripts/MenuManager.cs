@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
     }
      void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire5"))
         {
             if (onRestartButton)
             {
@@ -47,7 +47,7 @@ public class MenuManager : MonoBehaviour
         }
         if (!isMenuActive)
         {
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire4"))
             {
                 menuCanvas.SetActive(true);
                 pointer.SetActive(true);
@@ -94,11 +94,14 @@ public class MenuManager : MonoBehaviour
     {
         
     }
-    public void Pause()
+    private void Pause()
     {
         isMenuActive = true;
         Debug.Log("pause");
     }
     // Update is called once per frame
-
+    public bool IsPaused()
+    {
+        return isMenuActive;
+    }
 }

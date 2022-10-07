@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     Direction m_direction;
     float m_Grados;
     bool try_Turn;
+    [SerializeField] MenuManager menuManager;
 
     private enum Direction
     { 
@@ -31,37 +32,39 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (this.CanMove())
-        {
-            MoveForward();
-        }
+        if (!menuManager.IsPaused()) {
+            if (this.CanMove())
+            {
+                MoveForward();
+            }
 
-        if (try_Turn)
-        {
-            try_Turn = Girar(m_Grados);
-        }
+            if (try_Turn)
+            {
+                try_Turn = Girar(m_Grados);
+            }
 
-        if (
-            Input.GetKeyDown(KeyCode.DownArrow) ||
-            Input.GetButtonDown("Jump")
-            )
-        {
-            try_Turn = Girar(180);           
-        }
+            if (
+                Input.GetKeyDown(KeyCode.DownArrow) ||
+                Input.GetButtonDown("Jump")
+                )
+            {
+                try_Turn = Girar(180);
+            }
 
-        if (
-            Input.GetKeyDown(KeyCode.RightArrow)||
-            Input.GetButtonDown("Fire2")
-            )
-        {
-            try_Turn = Girar(90);
-        }
+            if (
+                Input.GetKeyDown(KeyCode.RightArrow) ||
+                Input.GetButtonDown("Fire2")
+                )
+            {
+                try_Turn = Girar(90);
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) ||
-            Input.GetButtonDown("Fire3")
-            )
-        {
-            try_Turn = Girar(-90);
+            if (Input.GetKeyDown(KeyCode.LeftArrow) ||
+                Input.GetButtonDown("Fire3")
+                )
+            {
+                try_Turn = Girar(-90);
+            }
         }
     }
 
