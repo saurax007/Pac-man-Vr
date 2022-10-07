@@ -81,7 +81,7 @@ public class MenuManager : MonoBehaviour
     }
     public void OnRestartClick()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Testeo");
     }
     public void OnStartClick()
     {
