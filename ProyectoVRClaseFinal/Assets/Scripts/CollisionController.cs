@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
+    float scaredTime = 0;
+
+    private void Update()
+    {
+        scaredTime += Time.deltaTime;
+    }
 
     private void OnTriggerEnter(Collider other)
     {        
         if (other.CompareTag("Enemy"))
         {
             // Restart game
-
+            Invoke("ResetPlayer", 1f);
         }
         if (other.CompareTag("Bola"))
         {
@@ -25,15 +31,31 @@ public class CollisionController : MonoBehaviour
             {
                 enemy.isScared = true;
             }
-            Invoke("ResetScare",15f);
-        }
+            scaredTime = 0;
+            Invoke("ResetScare",0f);
+        }        
     }
+
+
     private void ResetScare()
     {
-        var enemies = FindObjectsOfType<Enemy>();
-        foreach (var enemy in enemies)
+        if (scaredTime >= 15)
         {
-            enemy.isScared = false;
+            var enemies = FindObjectsOfType<Enemy>();
+            foreach (var enemy in enemies)
+            {
+                enemy.isScared = false;
+            }
         }
+        else
+        {
+            Invoke("ResetScare", 0.5f);
+        } 
+    }
+
+
+    private void ResetPlayer()
+    {
+        FindObjectOfType<EnemySpawnerController>().ResetPlayer();
     }
 }

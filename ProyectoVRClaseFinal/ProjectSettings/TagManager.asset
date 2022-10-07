@@ -9,6 +9,7 @@ TagManager:
   - TP2
   - TP1
   - EnemyDoor
+  - Fruta
   layers:
   - Default
   - TransparentFX

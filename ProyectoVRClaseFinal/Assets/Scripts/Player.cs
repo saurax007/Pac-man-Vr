@@ -7,11 +7,15 @@ public class Player : MonoBehaviour
     [SerializeField] Transform raycaster;
     [SerializeField] int initDirection;
     Enemy[] enemies;
-    float m_stop_distance = 1.5f;
+    float m_stop_distance = 1.7f;
     float m_Speed;
     Direction m_direction;
     float m_Grados;
     bool try_Turn;
+    float speedH = 2;
+    float speedV = 2;
+    float yaw;
+    float pitch;
 
     private enum Direction
     { 
@@ -23,12 +27,16 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_Speed = 4.0f; // Ajustar
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
         m_Grados = 0;
         try_Turn = false;
     }
 
     void Update()
     {
+        CameraControl();
+
         if (this.CanMove())
         {
             MoveForward();
@@ -61,6 +69,13 @@ public class Player : MonoBehaviour
         {
             try_Turn = Girar(-90);
         }
+    }
+
+    void CameraControl()
+    {
+        yaw += speedH * Input.GetAxis("Mouse X");
+        pitch -= speedV * Input.GetAxis("Mouse Y");
+        transform.eulerAngles = new Vector3(pitch,yaw,0.0f);
     }
 
     private void MoveForward() {
