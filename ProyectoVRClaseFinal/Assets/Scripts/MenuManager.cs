@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +18,8 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] GameObject menuCanvas;
     [SerializeField] GameObject pointer;
-    
+
+    Enemy[] ghosts;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,7 @@ public class MenuManager : MonoBehaviour
             }
         }
     }
+
     public void RestartButton()
     {
         onRestartButton = true;
@@ -66,6 +69,17 @@ public class MenuManager : MonoBehaviour
         onRestartButton = false;
         onStartButton = true;
         onSettingsButton = false;
+        ghosts = FindObjectsOfType<Enemy>();
+    }
+
+    void ActiveEnemy()
+    {
+        Enemy enemy = ghosts.FirstOrDefault(e => !e.isActive);
+        enemy.isActive = true;
+        if (ghosts.Where(e => !e.isActive).Any())
+        {
+            Invoke("ActiveEnemy", 3);
+        }
     }
     public void SettingsButton()
     {
@@ -88,6 +102,7 @@ public class MenuManager : MonoBehaviour
         menuCanvas.SetActive(false);
         pointer.SetActive(false);
         isMenuActive = false;
+        Invoke("ActiveEnemy", 1);
         Debug.Log("Start");
     }
     public void OnSettingsClick()

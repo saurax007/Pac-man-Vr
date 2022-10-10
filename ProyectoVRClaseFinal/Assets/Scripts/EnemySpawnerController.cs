@@ -1,11 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnerController : MonoBehaviour
 {
     [SerializeField] GameObject[] spawners;
-    [SerializeField] GameObject[] ghost;
+    [SerializeField] GameObject[] ghosts;
 
     [SerializeField] GameObject playerSpawner;
     [SerializeField] GameObject player;
@@ -21,7 +21,7 @@ public class EnemySpawnerController : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            Instantiate(ghost[i], spawners[i].transform.position, Quaternion.identity);
+            Instantiate(ghosts[i], spawners[i].transform.position, Quaternion.identity);
         }
     }
 

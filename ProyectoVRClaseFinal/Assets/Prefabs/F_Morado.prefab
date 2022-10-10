@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3220247862751248992}
   - component: {fileID: -6931457854077655216}
   - component: {fileID: -3544289400547701254}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: F_Morado
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -116,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   enemySpawn: {fileID: 0}
+  menuManager: {fileID: 0}
+  isActive: 0
   isScared: 0
 --- !u!195 &-3544289400547701254
 NavMeshAgent:
@@ -135,7 +137,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.01659808
+  m_Height: 0.008
   m_BaseOffset: 0.00829904
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

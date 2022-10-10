@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 321779074378059377}
   - component: {fileID: 6561996176472940009}
   - component: {fileID: -524422273319250686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: F_Amarillo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -116,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   enemySpawn: {fileID: 0}
+  menuManager: {fileID: 0}
+  isActive: 0
   isScared: 0
 --- !u!195 &-524422273319250686
 NavMeshAgent:
@@ -135,7 +137,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.01659808
+  m_Height: 0.008
   m_BaseOffset: 0.00829904
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
